@@ -55,7 +55,6 @@ Route::middleware(['auth'])->group(function () {
 
 
     // === TAMBAHAN KODE BARU (SOAL 3 / KELOLA BUKU) ===
-    // Diperbaiki dengan menambahkan ->name('admin.') agar route resource memiliki prefiks admin.
     Route::middleware(['auth', 'can:kelola-buku'])->prefix('admin')->name('admin.')->group(function () {
         Route::resource('buku', BukuController::class);
     });
@@ -87,6 +86,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/buku/{id}', [BukuController::class, 'show'])->name('buku.show');
 
 });
+
+// Route test-error ditempatkan di luar group middleware auth agar dapat diuji secara langsung
 Route::get('/test-error', function () {
     throw new \Exception('Simulasi error keamanan sistem!');
 });
