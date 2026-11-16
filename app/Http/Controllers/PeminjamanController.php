@@ -35,7 +35,7 @@ class PeminjamanController extends Controller
 
     public function index()
     {
-        $peminjamans = Peminjaman::with(['user', 'buku'])->latest()->get();
+       Peminjaman::where('user_id', auth()->id())->latest()->get();
         return view('admin.peminjaman.index', compact('peminjamans'));
     }
 
