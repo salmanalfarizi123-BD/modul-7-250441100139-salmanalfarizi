@@ -34,10 +34,10 @@ class PeminjamanController extends Controller
     }
 
     public function index()
-    {
-       Peminjaman::where('user_id', auth()->id())->latest()->get();
-        return view('admin.peminjaman.index', compact('peminjamans'));
-    }
+{
+    $peminjamans = Peminjaman::with(['user', 'buku'])->latest()->get();
+    return view('admin.peminjaman.index', compact('peminjamans'));
+}
 
     public function updateStatus(Request $request, $id)
     {
