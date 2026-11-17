@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Policies;
-use App\Models\User;
-use App\Models\Peminjaman;
 
-class PeminjamanPolicy {
-    public function view(User $user, Peminjaman $peminjaman): bool
+use App\Models\Peminjaman;
+use App\Models\User;
+
+class PeminjamanPolicy
 {
-    return $user->hasAnyRole(['admin', 'petugas'])
-        || $peminjaman->user_id === $user->id;
-}
+    public function view(User $user, Peminjaman $peminjaman): bool
+    {
+        return $user->hasAnyRole(['admin', 'petugas'])
+            || (int) $peminjaman->user_id === (int) $user->id;
+    }
 }
